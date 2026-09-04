@@ -13,7 +13,7 @@ interface ConfettiParticle {
 }
 
 const SETS = [
-  { reps: 10, pct: 0,    display: "10 reps — just the bar" },
+  { reps: 10, pct: 0,    display: "10 reps of just the bar" },
   { reps: 5,  pct: 0.50, display: "5 reps at 50%" },
   { reps: 3,  pct: 0.60, display: "3 reps at 60%" },
   { reps: 2,  pct: 0.70, display: "2 reps at 70%" },
