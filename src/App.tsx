@@ -422,7 +422,11 @@ export default function App() {
         </button>
       </div>
 
-      <div className={`flex-1 min-h-0 flex flex-col items-center gap-2 md:gap-4 px-4 pt-1 pb-2 md:pb-6 ${isStarted ? "justify-start" : "justify-center"} md:justify-center`}>
+      <div className={`flex-1 min-h-0 flex flex-col items-center px-4 ${
+        isStarted
+          ? "justify-evenly pt-1 pb-[calc(3.75rem+env(safe-area-inset-bottom))]"
+          : "justify-center gap-3 md:gap-4 pb-6"
+      }`}>
 
         {!isStarted ? (
           <>
@@ -459,58 +463,58 @@ export default function App() {
           </>
         ) : (
           <>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Maxing at {maxWeight} {unit}!
-              </h1>
-              <button onClick={editMax} title="Change max"
-                className="w-7 h-7 rounded-full bg-white/50 hover:bg-white/80 flex items-center justify-center transition-all active:scale-95"
-                style={{ fontSize: 14 }}>
-                ✎
-              </button>
-            </div>
-
-            <div className="flex flex-col items-center gap-2 -mt-1">
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Maxing at {maxWeight} {unit}!
+                </h1>
+                <button onClick={editMax} title="Change max"
+                  className="w-7 h-7 rounded-full bg-white/50 hover:bg-white/80 flex items-center justify-center transition-all active:scale-95"
+                  style={{ fontSize: 14 }}>
+                  ✎
+                </button>
+              </div>
               <p className="text-gray-700 font-semibold text-[17px]">
                 Set {currentSet + 1} of {SETS.length}: {set.display}
               </p>
               <SetDots current={currentSet} total={SETS.length} />
             </div>
 
-            <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm overflow-hidden" style={{ height: 54 }}>
-              <div className="w-28 px-5 text-center text-xl font-bold text-gray-900">
-                {setWeight % 1 === 0 ? setWeight : setWeight.toFixed(1)}
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm overflow-hidden" style={{ height: 54 }}>
+                <div className="w-28 px-5 text-center text-xl font-bold text-gray-900">
+                  {setWeight % 1 === 0 ? setWeight : setWeight.toFixed(1)}
+                </div>
+                <div className="flex m-1.5 gap-0.5">
+                  {(["lbs", "kg"] as Unit[]).map(u => (
+                    <button key={u} onClick={() => switchUnit(u)}
+                      className={`px-3.5 py-1.5 rounded-xl text-sm font-semibold transition-all ${unit === u ? "bg-gray-200 text-gray-900" : "text-gray-400 hover:text-gray-600"}`}>
+                      {u}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex m-1.5 gap-0.5">
-                {(["lbs", "kg"] as Unit[]).map(u => (
-                  <button key={u} onClick={() => switchUnit(u)}
-                    className={`px-3.5 py-1.5 rounded-xl text-sm font-semibold transition-all ${unit === u ? "bg-gray-200 text-gray-900" : "text-gray-400 hover:text-gray-600"}`}>
-                    {u}
-                  </button>
-                ))}
-              </div>
+              {currentSet > 0 && platesPerSide.length > 0 && (
+                <div className="flex flex-wrap gap-2 justify-center max-w-xs">
+                  {platesPerSide.map((p, i) => (
+                    <span key={i} className="text-xs font-bold px-2.5 py-1 rounded-full text-white/90"
+                      style={{ background: getPlateVis(p.weight).fill }}>
+                      {p.count > 1 ? `${p.count}x` : ""}{p.weight}{unit}
+                    </span>
+                  ))}
+                  <span className="text-xs text-gray-500/80 self-center">per side</span>
+                </div>
+              )}
             </div>
-
-            {currentSet > 0 && platesPerSide.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center max-w-xs">
-                {platesPerSide.map((p, i) => (
-                  <span key={i} className="text-xs font-bold px-2.5 py-1 rounded-full text-white/90"
-                    style={{ background: getPlateVis(p.weight).fill }}>
-                    {p.count > 1 ? `${p.count}x` : ""}{p.weight}{unit}
-                  </span>
-                ))}
-                <span className="text-xs text-gray-500/80 self-center">per side</span>
-              </div>
-            )}
           </>
         )}
 
-        <div className="w-full max-w-2xl px-2">
+        <div className="w-full max-w-2xl px-2 shrink min-h-0">
           <BarbellSVG platesPerSide={platesPerSide} repLabel={repLabel} />
         </div>
 
         {isStarted && (
-          <div className="flex gap-3 md:gap-4 w-full max-w-md px-1 pt-2 justify-center">
+          <div className="flex gap-3 md:gap-4 w-full max-w-md px-1 justify-center shrink-0">
             <button onClick={goPrev} disabled={currentSet === 0}
               className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-semibold text-gray-700 transition-all active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed"
               style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(8px)", fontSize: 15 }}>
