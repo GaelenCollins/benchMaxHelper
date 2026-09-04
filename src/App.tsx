@@ -508,27 +508,27 @@ export default function App() {
         <div className="w-full max-w-2xl px-2">
           <BarbellSVG platesPerSide={platesPerSide} repLabel={repLabel} />
         </div>
-      </div>
 
-      {isStarted && (
-        <div className="flex gap-3 md:gap-4 px-5 pt-1 pb-[calc(4.25rem+env(safe-area-inset-bottom))] md:pb-16 justify-center">
-          <button onClick={goPrev} disabled={currentSet === 0}
-            className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-semibold text-gray-700 transition-all active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed"
-            style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(8px)", fontSize: 15 }}>
-            Previous Set
-          </button>
-          <button onClick={goNext} disabled={isLast}
-            className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-bold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
-            style={{
-              background: isLast ? "rgba(107,114,128,0.25)" : "rgba(20,20,35,0.78)",
-              backdropFilter: "blur(8px)",
-              color: isLast ? "#6b7280" : "white",
-              fontSize: 15,
-            }}>
-            {isLast ? "Done!" : "Next Set"}
-          </button>
-        </div>
-      )}
+        {isStarted && (
+          <div className="flex gap-3 md:gap-4 w-full max-w-md px-1 pt-2 justify-center">
+            <button onClick={goPrev} disabled={currentSet === 0}
+              className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-semibold text-gray-700 transition-all active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed"
+              style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(8px)", fontSize: 15 }}>
+              Previous Set
+            </button>
+            <button onClick={goNext} disabled={isLast}
+              className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-bold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{
+                background: isLast ? "rgba(107,114,128,0.25)" : "rgba(20,20,35,0.78)",
+                backdropFilter: "blur(8px)",
+                color: isLast ? "#6b7280" : "white",
+                fontSize: 15,
+              }}>
+              {isLast ? "Done!" : "Next Set"}
+            </button>
+          </div>
+        )}
+      </div>
 
       {showPlates && (
         <PlatesPanel plates={plates} unit={unit} barWeight={barWeight}
