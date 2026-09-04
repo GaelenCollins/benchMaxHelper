@@ -205,7 +205,7 @@ function BarbellSVG({
   });
 
   return (
-    <svg viewBox={`0 0 ${VW} ${VH}`} className="w-full" style={{ maxHeight: 280 }} aria-label="Bench press barbell">
+    <svg viewBox={`0 0 ${VW} ${VH}`} className="w-full max-h-[200px] md:max-h-[280px]" aria-label="Bench press barbell">
       <rect x={40} y={barY - barH / 2} width={VW - 80} height={barH} rx={barH / 2} fill={barColor} />
 
       {repLabel && (
@@ -410,19 +410,19 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden"
+    <div className="h-full flex flex-col relative overflow-hidden"
       style={{ background: "linear-gradient(160deg, #c5e8f8 0%, #a8d8f0 60%, #92c8e8 100%)" }}>
 
       <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-50" />
 
-      <div className="flex justify-end p-5">
+      <div className="flex justify-end px-4 pt-3 pb-1 md:p-5">
         <button onClick={() => setShowPlates(true)}
           className="bg-white/85 backdrop-blur-sm rounded-2xl px-5 py-2.5 font-semibold text-gray-800 shadow-sm hover:bg-white transition-all active:scale-95 text-[15px]">
           Plates
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-4 pb-6 -mt-4">
+      <div className={`flex-1 min-h-0 flex flex-col items-center gap-2 md:gap-4 px-4 pt-1 pb-2 md:pb-6 ${isStarted ? "justify-start" : "justify-center"} md:justify-center`}>
 
         {!isStarted ? (
           <>
@@ -505,20 +505,20 @@ export default function App() {
           </>
         )}
 
-        <div className="w-full max-w-2xl px-2 mt-1">
+        <div className="w-full max-w-2xl px-2">
           <BarbellSVG platesPerSide={platesPerSide} repLabel={repLabel} />
         </div>
       </div>
 
       {isStarted && (
-        <div className="flex gap-4 px-5 pb-9 justify-center">
+        <div className="flex gap-3 md:gap-4 px-5 pt-1 pb-[calc(4.25rem+env(safe-area-inset-bottom))] md:pb-16 justify-center">
           <button onClick={goPrev} disabled={currentSet === 0}
-            className="flex-1 max-w-[180px] py-4 rounded-2xl font-semibold text-gray-700 transition-all active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed"
+            className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-semibold text-gray-700 transition-all active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed"
             style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(8px)", fontSize: 15 }}>
             Previous Set
           </button>
           <button onClick={goNext} disabled={isLast}
-            className="flex-1 max-w-[180px] py-4 rounded-2xl font-bold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="flex-1 max-w-[180px] py-3 md:py-4 rounded-2xl font-bold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
             style={{
               background: isLast ? "rgba(107,114,128,0.25)" : "rgba(20,20,35,0.78)",
               backdropFilter: "blur(8px)",
